@@ -1,66 +1,81 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Project README
 
-## About Laravel
+## Overview
+This project is a test task for a programmer. It involves creating a Telegram bot integrated with a web server and Trello API to automate project management functions, such as notifying task status changes in Trello and generating task allocation reports within a Telegram group. The bot facilitates task tracking and efficient team communication for a Project Manager (PM) and their team.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Project Structure
+- **Telegram Bot**: A bot registered in Telegram, used to communicate with users and receive/send task updates.
+- **Web Server**: A server set up to handle webhook requests from both Telegram and Trello, along with a database for storing user data.
+- **Database**: Stores user data, task statuses, and integration details between Telegram and Trello.
+- **Trello API Integration**: Tracks changes in Trello boards and communicates updates through the Telegram bot.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Task Breakdown
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Register Telegram Bot
+- **Objective**: Create a Telegram bot to serve as the main interaction point with users.
+- **Result**: A registered Telegram bot ready for further configuration.
 
-## Learning Laravel
+### 2. Configure Web Server
+- **Objective**: Set up a web server that can receive webhook requests from the Telegram bot and respond to users. Additionally, configure a database for storing user data and task information.
+- **Result**: A functioning server that can handle the `/start` command from the bot and save user details in the database.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 3. Create Telegram Group Chat
+- **Objective**: Set up a Telegram group chat and add the PM.
+- **Result**: A group chat is created, and the PM is added.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 4. Initialize Bot with PM
+- **Objective**: Configure the bot to respond to the PM’s `/start` command by saving the PM’s details in the database and sending a personalized greeting.
+- **Result**: The bot records the PM in the database and greets them by name.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 5. Set Up Trello Board
+- **Objective**: Create a Trello board with columns "InProgress" and "Done". Add the PM with editing permissions.
+- **Result**: A Trello board is created with the specified columns, and the PM is granted editing rights.
 
-## Laravel Sponsors
+### 6. Configure Trello Webhook API
+- **Objective**: Develop an API to receive Trello webhook notifications on card movements between "InProgress" and "Done" columns and forward these updates to the Telegram group.
+- **Result**: An API is created that relays Trello card movements to the server, which then sends these updates via the Telegram bot to the group.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 7. Optional: Generate Task Report (Advanced)
+- **Objective**: Enable users to link their Trello accounts to Telegram. The bot should provide a report on task allocation within the group, showing tasks each user is working on.
+- **Result**: The PM can link their Telegram and Trello accounts and request a report of tasks per group member.
 
-### Premium Partners
+**Details**: New group members who are not linked to Trello will appear in reports without any current tasks.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Requirements
+- **Tech Stack**: PHP 8.1, Laravel 10
+- **API & Webhooks**: Familiarity with Telegram Bot API and Trello API/Webhooks is required.
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+## Additional Setup Notes
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Environment Configuration
+1. **Environment Variables**: The `.env.example` file contains all necessary keys and configuration settings required for the project. Copy this file to `.env` and replace placeholders with actual values before running the project.
 
-## Security Vulnerabilities
+### Testing with ngrok
+2. **Using ngrok Instead of a Web Server**: For testing purposes, ngrok was used as a tunneling tool to expose the local server to the internet.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    - **Start Local Server**: Run `php artisan serve` to start the Laravel development server locally. This command will provide an IP and port (usually `127.0.0.1:8000`) that ngrok will use as the target.
 
-## License
+    - **Configure ngrok**: Run `ngrok http [PORT]` (e.g., `ngrok http 8000`) to create a public URL that tunnels requests to your local Laravel server.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    - **Update APP_URL in .env**: Take the generated ngrok URL (e.g., `https://abcd1234.ngrok.io`) and set it as `APP_URL` in your `.env` file. This ensures that webhook callbacks and other external requests correctly reach your local server.
+
+### Example `.env` Setup
+Ensure `.env` has the following settings configured:
+
+```dotenv
+APP_URL=https://abcd1234.ngrok.io  # Replace with your actual ngrok URL
+
+# Telegram Bot Settings
+TELEGRAM_TRELLO_WEBHOOK_URL="${APP_URL}/telegram/webhookTrello"
+TELEGRAM_TRELLO_BOT_NAME=your_bot_name
+TELEGRAM_TRELLO_BOT_TOKEN=your_telegram_bot_token
+
+# Trello API Settings
+TRELLO_API_KEY=your_trello_api_key
+TRELLO_TOKEN=your_trello_api_token
+TRELLO_WEBHOOK_URL="${APP_URL}/api/trello/webhook"
+```
